@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+       <meta charset="utf-8">
+       <title>РЕЗУЛЬТАТЫ</title>
+    </head>
+ <body style="background-color: rgb(240, 255, 240); color: rgb(131, 139, 139);">
+ 
+<p Найденные данные об информантах, указавших этот вариант: </p>
+<ol> 
+{% for r in rslt %} 
+<li>{{r}}</li> 
+{% endfor %} 
+</ol>
+ 
+ <br>
+<form action="/" method="get"><input value="Заполнить анкету (ещё раз)" type="submit"> </form>
+<br>
+<form action="/stats" method="get"><input value="Посмотреть статистику" type="submit"> </form>
+<br>
+<form action="/search" method="get"><input value="Поиск по полученным данным" type="submit"> </form>
+<br>
+<form action="/json" method="get"><input value="Данные в формате json" type="submit"> </form>
+ 
+ </body>
+</html>

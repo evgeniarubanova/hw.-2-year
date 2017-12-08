@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>Статистика</title>
+</head>
+
+<body style="background-color: rgb(240, 255, 240); color: rgb(131, 139, 139);">
+
+<div> 
+<p>Количество опрошенных определенного возраста</p>
+<ul> 
+{% for key, value in age.items() %} 
+<li>{{key}} - {{value}}</li> 
+{% endfor %} 
+</ul> 
+</div>
+
+<div> 
+<p>Города опрошенных: </p>
+<ul> 
+{% for key, value in city.items()%} 
+<li>{{key}} - {{value}}</li> 
+{% endfor %} 
+</ul> </div>
+
+<div> 
+<p>Родной язык опрошенных: </p>
+<ul> 
+{% for key, value in language.items() %} 
+<li>{{key}} - {{value}}</li> 
+{% endfor %} 
+</ul> </div>
+
+<div> 
+<p>Образование опрошенных: </p>
+<ul> 
+{% for key, value in education.items() %} 
+<li>{{key}} - {{value}}</li> 
+{% endfor %} 
+</ul> </div>
+
+<form action="/" method="get"><input value="Заполнить анкету (ещё раз)" type="submit"> </form>
+<br>
+<form action="/search" method="get"><input value="Поиск по полученным данным" type="submit"> </form>
+<br>
+<form action="/json" method="get"><input value="Данные в формате json" type="submit"> </form>
+
+</body></html>
