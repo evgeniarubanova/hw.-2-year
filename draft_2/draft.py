@@ -2,6 +2,7 @@ import re
 from flask import Flask
 from flask import url_for, render_template, request, redirect
 import json
+import sqlite3
 
 age = {}
 city = {}
@@ -15,20 +16,32 @@ sort_educ = {}
 
 app = Flask(__name__)
 
+#страница с анкетой
 @app.route('/')
 def quiz():
     return render_template("form.html")
 
+#страница, появляющаяся после заполнения анкеты
 @app.route('/after')
 def after():
     a = request.args['возраст']
     c = request.args['город']
     l = request.args['язык']
     e = request.args['образование']
+
+    #создание базы данных
     
     data = dict(request.args)
+    conn = sqlite3.connect('data.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE if not exists FORM (AGE integer, CITY text, LANGUAGE text, EDUCATION text, Tefteli text, Inache text, Ukrainskij text, Prikus text, Zapasnoj text)''')
+    c.execute('INSERT INTO FORM (AGE, CITY, LANGUAGE, EDUCATION, Tefteli, Inache, Ukrainskij, Prikus, Zapasnoj) VALUES(?,?,?,?,?,?,?,?,?)',  [data['ВОЗРАСТ'][0], data['ГОРОД'][0], data['ЯЗЫК'][0], data['ОБРАЗОВАНИЕ'][0], data['Тефтели'][0],data['Иначе'][0], data['Украинский'][0], data['Прикус'][0], data['Запасной'][0]])
+    conn.commit()
+    
     with open('after.json', "a", newline='') as m: 
         m.write(json.dumps(data, ensure_ascii = False))
+
+    #добавление элементов в словари
 
     if a not in age:
         age[a] = 1
@@ -50,28 +63,20 @@ def after():
     else:
         education[e] += 1
 
-    for key in sorted(age):
-        sort_age[key] = age[key]
-
-    for key in sorted(city):
-        sort_city[key] = city[key]
+    #преобразование словарей в json
         
-    for key in sorted(language):
-        sort_lang[key] = language[key]
-
-    for key in sorted(education):
-        sort_educ[key] = education[key]
-
-    json.dump(sort_age, open('age.json', 'w', newline=''))
-    json.dump(sort_lang, open('language.json', 'w', newline=''))
-    json.dump(sort_city, open('city.json', 'w', newline=''))
-    json.dump(sort_educ, open('education.json', 'w', newline=''))
+    json.dump(age, open('age.json', 'w', newline=''))
+    json.dump(language, open('language.json', 'w', newline=''))
+    json.dump(city, open('city.json', 'w', newline=''))
+    json.dump(education, open('education.json', 'w', newline=''))
         
     return render_template('after.html')
     
 
 @app.route('/stats')
 def stats():
+
+    #преобразование json в словари 
     
     age = json.load(open('age.json'))
     
@@ -83,6 +88,7 @@ def stats():
 
     return render_template('stats.html', age = age, city = city, language = language, education = education)
 
+#страница с данными в формате json
 @app.route('/json')
 def j_son():
         
@@ -90,14 +96,16 @@ def j_son():
         content = m.read() 
     return render_template('json.html', content = content)
 
+#страница с поиском
 @app.route('/search')
 def searching():
     return render_template('search.html')
 
+#страница с результатами поиска
 @app.route('/results')
 def final():
     
-    search = request.args['search']
+    searching = request.args['search']
     with open('after.json', "r") as m: 
         content = m.read()
         
@@ -111,7 +119,7 @@ def final():
         clean.append(cl)
         
     for cl in clean:
-        if re.search(search, cl):
+        if re.search(searching, cl):
             rslt.append(cl)
             
     return render_template('results.html', rslt = rslt)  
