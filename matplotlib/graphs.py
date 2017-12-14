@@ -17,28 +17,28 @@ def parts(html):
     words = re.findall(reg_whole, html)
     for i in words:
         for p in re.findall(reg_parts, i[1]):
-            if p == 'ni.' or p == 'na.' or p == 'n.' or p == 'np.':
+            if p == 'na.' or p == 'ni.' or p == 'n.' or p == 'np.':
                 d['nouns'] = str(int(d['nouns']) + 1)
-            if p == 'adj.':
-                d['adjectives'] = str(int(d['adjectives']) + 1)
+            if p == 'v.' or p == 'vin.' or p == 'vtr.' or p == 'v. aux.':
+                d['verbs'] = str(int(d['verbs']) + 1)
             if p == 'adv.':
                 d['adverbs'] = str(int(d['adverbs']) + 1)
-            if p == 'v. aux.' or p == 'v.' or p == 'vin.' or p == 'vtr.':
-                d['verbs'] = str(int(d['verbs']) + 1)
-            if p == 'conj.':
-                d['conjunctions'] = str(int(d['conjunctions']) + 1)
+            if p == 'adj.':
+                d['adjectives'] = str(int(d['adjectives']) + 1)
             if p == 'det.':
                 d['determiners'] = str(int(d['determiners']) + 1)
-            if p == 'intj.':
-                d['interjections'] = str(int(d['interjections']) + 1)
             if p == 'num.':
                 d['numerals'] = str(int(d['numerals']) + 1)
+            if p == 'conj.':
+                d['conjunctions'] = str(int(d['conjunctions']) + 1)
+            if p == 'intj.':
+                d['interjections'] = str(int(d['interjections']) +1)
             if p == 'pn.':
                 d['pronouns'] = str(int(d['pronouns']) + 1)
-            if d == 'prep.':
-                pofspeech['prepositions'] = str(int(d['prepositions']) + 1)
-            if d == 'prop. n.':
+            if p == 'prop. n.':
                 d['proper nouns'] = str(int(d['proper nouns']) + 1)
+            if p == 'prep.':
+                d['prepositions'] = str(int(d['prepositions']) + 1)
     return d
 
 def letters(html):
