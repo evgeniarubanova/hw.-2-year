@@ -28,15 +28,8 @@ def after():
     c = request.args['город']
     l = request.args['язык']
     e = request.args['образование']
-
-    #создание базы данных
     
     data = dict(request.args)
-    conn = sqlite3.connect('data.db')
-    c = conn.cursor()
-    c.execute('''CREATE TABLE if not exists FORM (AGE integer, CITY text, LANGUAGE text, EDUCATION text, Tefteli text, Inache text, Ukrainskij text, Prikus text, Zapasnoj text)''')
-    c.execute('INSERT INTO FORM (AGE, CITY, LANGUAGE, EDUCATION, Tefteli, Inache, Ukrainskij, Prikus, Zapasnoj) VALUES(?,?,?,?,?,?,?,?,?)',  [data['ВОЗРАСТ'][0], data['ГОРОД'][0], data['ЯЗЫК'][0], data['ОБРАЗОВАНИЕ'][0], data['Тефтели'][0],data['Иначе'][0], data['Украинский'][0], data['Прикус'][0], data['Запасной'][0]])
-    conn.commit()
     
     with open('after.json', "a", newline='') as m: 
         m.write(json.dumps(data, ensure_ascii = False))
