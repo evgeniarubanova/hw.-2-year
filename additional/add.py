@@ -166,18 +166,18 @@ def translated_text(link):
                     if word[l-1] == 'И' and word[l] in vowels:
                         word = word[:l-1] + 'I' + word[1:]
             #тут почему-то не работало html.unescape (((((((
-##            if re.search('&#1110;', word):
-##                word = re.sub('&#1110;', 'i', word)
-##            if re.search('&#1030;', word):
-##                word = re.sub('&#1030;', 'І', word)
-##            if re.search('&#1123;', word):
-##                word = re.sub('&#1123;', 'ѣ', word)
-##            if re.search('&#1139;', word):
-##                word = re.sub('&#1139;', 'ѳ', word)
-##            if re.search('&#1038;', word):
-##                word = re.sub('&#1038;', 'Ѳ', word)
-##            if re.search('&#1141;', word):
-##                word = re.sub('&#1141;', 'ѵ', word)
+            if re.search('&#1110;', word):
+                word = re.sub('&#1110;', 'i', word)
+            if re.search('&#1030;', word):
+                word = re.sub('&#1030;', 'І', word)
+            if re.search('&#1123;', word):
+                word = re.sub('&#1123;', 'ѣ', word)
+            if re.search('&#1139;', word):
+                word = re.sub('&#1139;', 'ѳ', word)
+            if re.search('&#1038;', word):
+                word = re.sub('&#1038;', 'Ѳ', word)
+            if re.search('&#1141;', word):
+                word = re.sub('&#1141;', 'ѵ', word)
         tr_text += word + ' '
     return tr_text  
 
