@@ -79,20 +79,6 @@ def get_comments():
     #av_comments_len = numpy.around(av_comments_len, decimals=0)
     return av_comments_len
 
-##def lens_graph():
-##    post_len = get_posts_1()
-##    av_comments_len = get_comments()
-##    dict_1 = dict(zip(post_len, av_comments_len))
-##    X = []
-##    Y = []
-##    for post_len in av_comments_len:
-##        X.append(post_len)
-##        Y.append(av_comments_len[post_len])
-##    plt.xlabel('Длина поста')
-##    plt.ylabel('Средняя длина комментариев к посту')
-##    plt.scatter(X, Y)
-##    plt.show()
-##
 
 def lens_graph():
     X = []
@@ -103,8 +89,6 @@ def lens_graph():
         X.append(i)
     for k in av_comments_len:
         Y.append(k)
-    print(X)
-    print(Y)
     plt.title('Соотношение длины поста со средней длиной его комментариев')
     plt.xlabel('Длина поста')
     plt.ylabel('Средняя длина комментариев')
