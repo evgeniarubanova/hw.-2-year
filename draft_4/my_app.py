@@ -1,3 +1,6 @@
+#Я долго пыталась выложить это на pythonanywhere, но тщетно. Пишет "There is a problem with your virtualenv setup.
+#Look at the virtualenv section below for details". Что не так, я не знаю, делала все по инструкции.
+
 import re
 import urllib.request  
 import pymystem3
