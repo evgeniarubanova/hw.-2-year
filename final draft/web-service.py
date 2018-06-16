@@ -65,10 +65,18 @@ def define_character():
     anecs = open('texts.txt', 'r', encoding = 'utf-8')
     characters = []
     anec_charact = {}
+    stuff = re.compile('(.*?,).*?', re.DOTALL)
     for anec in anecs:
         s = 0
         for word in anec.split():
-            re.sub('[\.\?!"@—№;%:?*_()-+=#$-^&:;\'"><,/\|\\«»~`•]', '', word) 
+            if re.search(stuff, word):
+                word = re.sub(stuff, '', word)
+            else:
+                pass
+            if re.search(reg_clean, word):
+                word = re.sub(reg_clean, '', word)
+            else:
+                pass
             ana = morph.parse(word)
             first = ana[0]
             tag = first.normalized.tag
